@@ -21,9 +21,21 @@ function main() {
     );
     var image_alien = document.querySelector("img.alien");
     var iamge_player = document.querySelector("img.player");
-    console.log(iamge_player);
+    var image_star = document.querySelector("img.star");
     var alien = {
-        x: 0,
+        x: Math.floor(Math.random() * CANVAS_WIDTH),
+        y: 0
+    };
+    var alien2 = {
+        x: Math.floor(Math.random() * CANVAS_WIDTH),
+        y: 0
+    };
+    var alien3 = {
+        x: Math.floor(Math.random() * CANVAS_WIDTH),
+        y: 0
+    };
+    var alien4 = {
+        x: Math.floor(Math.random() * CANVAS_WIDTH),
         y: 0
     };
     var player = {
@@ -34,16 +46,24 @@ function main() {
     context.drawImage(image_alien, alien.x, alien.y, image_alien.width, image_alien.height);
     context.drawImage(iamge_player, player.x, player.y, iamge_player.width, iamge_player.height);
     setInterval(function () {
-        context.clearRect(alien.x, alien.y, image_alien.width, image_alien.height);
-        context.fillRect(alien.x, alien.y, image_alien.width, image_alien.height);
+        context.clearRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        context.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+        for (var i = 0; i < 50; i++) {
+            context.drawImage(image_star, Math.floor(Math.random() * CANVAS_WIDTH), Math.floor(Math.random() * CANVAS_HEIGHT), image_star.width, image_star.height);
+        }
         alien.y++;
         if (alien.y == CANVAS_HEIGHT) {
             alien.y = 0;
+            alien.x = Math.floor(Math.random() * CANVAS_WIDTH);
+            alien2.x = Math.floor(Math.random() * CANVAS_WIDTH);
+            alien3.x = Math.floor(Math.random() * CANVAS_WIDTH);
+            alien4.x = Math.floor(Math.random() * CANVAS_WIDTH);
         }
         context.drawImage(image_alien, alien.x, alien.y, image_alien.width, image_alien.height);
+        context.drawImage(image_alien, alien2.x, alien.y, image_alien.width, image_alien.height);
+        context.drawImage(image_alien, alien3.x, alien.y, image_alien.width, image_alien.height);
+        context.drawImage(image_alien, alien4.x, alien.y, image_alien.width, image_alien.height);
         player.x += 3 * direction;
-        context.clearRect(player.x - 2 * direction, player.y, iamge_player.width, iamge_player.height);
-        context.fillRect(player.x - 2 * direction, player.y, iamge_player.width, iamge_player.height);
         context.drawImage(iamge_player, player.x, player.y, iamge_player.width, iamge_player.height);
     }, 10);
     document.addEventListener("keydown", function (event) {
